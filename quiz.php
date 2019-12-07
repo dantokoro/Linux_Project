@@ -11,6 +11,7 @@
         body {
             font-family: 'Roboto', sans-serif;
             padding-top: 5rem;
+            background: linear-gradient(to right, #3fb6a8, #7ed386);
         }
 
         .bd-placeholder-img {
@@ -49,6 +50,9 @@
             width: 0;
             background-color: #CBEA00;
             box-sizing: border-box;
+        }
+        .question {
+            font-size: 1em;
         }
     </style>
 </head>
@@ -97,11 +101,11 @@
     <?php
     $question = $_SESSION["quiz"][$_GET["q"]];
     ?>
-    <main role="main" class="container" style="height: auto !important;">
-        <div class="d-flex " style="height: auto !important;">
-            <div class="col-11 col-sm-11 col-md-11 col-lg-11 col-xl-11" style="height: auto !important;">
-                <div class="card" style="height: auto !important;">
-                    <div class="card-body" style="height: auto !important;">
+    <main role="main" class="container" style="height: auto !important;" >
+        <div class="d-flex " style="height: auto !important;" >
+            <div class="col-11 col-sm-11 col-md-11 col-lg-11 col-xl-11" align="center">
+                <div class="card" style="height: auto !important;" >
+                    <div class="card-body" style="height: auto !important;" >
                         <h2>
                             <font style="color: #00AEEF"><?= strtoupper($_SESSION["category"]); ?></font>
                         </h2>
@@ -109,7 +113,7 @@
                             <center><?= $question["question"]; ?></center>
                         </h3>
 
-                        <svg class="bd-placeholder-img card-img-top" style="margin-bottom: 10px" width="100%" height="240" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+                        <svg class="bd-placeholder-img card-img-top" style="margin-bottom: 10px" width="100%" height="160" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
                             <title><?= $question["question"]; ?></title>
                             <rect rx="0" ry="0" width="100%" height="100%" fill="#00AEEF"></rect>
                             <image x="50%" y="50%" width="200" height="200" transform="translate(-100,-100)" xlink:href="<?= $question["picture"]; ?>"></image>
@@ -117,11 +121,20 @@
                         </svg>
 
                         <form action="" method="post" style="height: auto !important;">
-                            <button type="submit" class="btn btn-dark btn-lg  btn-block" style="background-color:#00ff00"><?= $question["a"]; ?></button>
-                            <button type="submit" class="btn btn-dark btn-lg  btn-block" style="background-color:#666666"><?= $question["b"]; ?></button>
-                            <button type="submit" class="btn btn-dark btn-lg  btn-block" style="background-color:#ff0000"><?= $question["c"]; ?></button>
-                            <button type="submit" class="btn btn-dark btn-lg  btn-block" style="background-color:##FFD700"><?= $question["d"]; ?></button>
+                            <button name="answer" value="a" type="submit" class="btn btn-dark btn-lg  btn-block question" style="background-color:#00ff00"><?= $question["a"]; ?></button>
+                            <button name="answer" value="b" type="submit" class="btn btn-dark btn-lg  btn-block question" style="background-color:#666666"><?= $question["b"]; ?></button>
+                            <button name="answer" value="c" type="submit" class="btn btn-dark btn-lg  btn-block question" style="background-color:#ff0000"><?= $question["c"]; ?></button>
+                            <button name="answer" value="d" type="submit" class="btn btn-dark btn-lg  btn-block question" style="background-color:##FFD700"><?= $question["d"]; ?></button>
                         </form>
+                        <?php
+                            if (isset($_POST["answer"])) {                        
+                                if(strcmp($_POST["answer"], $question["answer"])==0){
+                                    echo "Dung";
+                                }else{
+                                    echo "Sai";
+                                }
+                            }
+                        ?>  
                     </div>
                 </div>
             </div>
