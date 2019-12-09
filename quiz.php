@@ -6,8 +6,8 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Play quizzes with good quiz questions and educational answers. Test your knowledge and learn. The quiz is good for kids and adults who love trivia.">
-    <link href="./Category_files/bootstrap.min.css" rel="stylesheet">
-    <link href="./Category_files/style.css" rel="stylesheet" >
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet" >
 </head>
 
 <body <?php if (!isset($_POST["answer"])) echo 'onload="move()"'; ?>>

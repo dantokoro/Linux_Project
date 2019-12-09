@@ -6,8 +6,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     <title>Quiz Categories QuizStone - Quiz and put your knowledge to the test</title>
-    <link href="./Category_files/bootstrap.min.css" rel="stylesheet">
-    <link href="./Category_files/style.css" rel="stylesheet">
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
 </head>
 
 <body>
