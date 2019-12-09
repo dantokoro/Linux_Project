@@ -65,18 +65,30 @@
                 $quiz_list[] = $quiz;
             }
         }
-        shuffle($quiz_list);
-        $_SESSION["quiz"] = array_slice($quiz_list, 0, 10);
+        if(isset($quiz_list)){
+            shuffle($quiz_list);
+            $_SESSION["quiz"] = array_slice($quiz_list, 0, 6);
+        }
         $_SESSION["category"]=$category["name"];
+        $_SESSION["score"]=0;
         //print_r($_SESSION);
         //foreach ($GLOBALS as $ques_num => $question) {
         ?>
         <div class="starter-template">
             <section class="jumbotron text-center">
                 <div class="container">
-                    <h1 class="jumbotron-heading"><?= $category["name"]; ?> Quiz</h1>
-                    <img width="100%" height="300" style="margin-top: 10px" src="<?= $category["picture"]; ?>" />
-                    <a href="quiz.php?q=1" class="btn btn-primary my-2">Start the Quiz</a>
+                    <h1 class="jumbotron-heading categoryName"><?= $category["name"]; ?> Quiz</h1>
+                    <img width="100%" height="400" style="margin-top: 20px" src="<?= $category["picture"]; ?>" />
+                    <?php
+                        if(!isset($quiz_list)) echo 'No question in this category :(';
+                        else echo '
+                    <div id="next" class="col-sm-11">
+                        <div class="button" id="button-7">
+                            <div id="dub-arrow"><a href="quiz.php?q=0" ><img src="./img/right-arrow.png" alt="" /></a></div>
+                            <a class="next_result_text" > START</a>
+                        </div>
+                    </div>';
+                    ?>
                 </div>
             </section>
         </div>

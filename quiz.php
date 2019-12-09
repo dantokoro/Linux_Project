@@ -7,57 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Play quizzes with good quiz questions and educational answers. Test your knowledge and learn. The quiz is good for kids and adults who love trivia.">
     <link href="./Category_files/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            padding-top: 5rem;
-            background: linear-gradient(to right, #3fb6a8, #7ed386);
-        }
-
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-        }
-
-        .starter-template {
-            padding: 2rem 1.5rem;
-            text-align: center;
-        }
-
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-            }
-        }
-
-        .site-logo {
-            display: inline-block;
-        }
-
-        #progressBar {
-            width: 14%;
-            margin-left: 83%;
-            height: 22px;
-            background-color: #0A5F44;
-        }
-
-        #progressBar div {
-            height: 100%;
-            text-align: right;
-            padding: 0 10px;
-            line-height: 22px;
-            /* same as #progressBar height if we want text middle aligned */
-            width: 0;
-            background-color: #CBEA00;
-            box-sizing: border-box;
-        }
-        .question {
-            font-size: 1em;
-        }
-    </style>
+    <link href="./Category_files/style.css" rel="stylesheet" >
 </head>
 
-<body onload="move()">
+<body <?php if (!isset($_POST["answer"])) echo 'onload="move()"'; ?>>
     <nav class="navbar navbar-expand-md navbar-dark rounded fixed-top" style="background-color: #333333">
         <div class="site-logo">
             <a href="index.php">
@@ -94,24 +47,25 @@
             </ul>
         </div>
     </nav>
-
-    <div class="progress" style="margin-top: 10px; height: 30px;">
-        <div id="timeBar" style="width: 100%;background-color: #00ff00;" class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-    </div>
     <?php
+    if (!isset($_POST["answer"]))
+        echo '<div class="progress" style="margin-top: 10px; height: 30px;">
+        <div id="timeBar" style="width: 100%;background-color: #00ff00;" class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>';
+
     $question = $_SESSION["quiz"][$_GET["q"]];
     ?>
-    <main role="main" class="container" style="height: auto !important;" >
-        <div class="d-flex " style="height: auto !important;" >
-            <div class="col-11 col-sm-11 col-md-11 col-lg-11 col-xl-11" align="center">
-                <div class="card" style="height: auto !important;" >
-                    <div class="card-body" style="height: auto !important;" >
-                        <h2>
-                            <font style="color: #00AEEF"><?= strtoupper($_SESSION["category"]); ?></font>
-                        </h2>
+    <main role="main" class="container" style="height: auto !important;">
+        <div class="d-flex " style="height: auto !important;">
+            <div class="col-11 col-sm-11 col-md-11 col-lg-11 col-xl-11" align="center" style="padding-left: 100px;">
+                <div class="card" style="height: auto !important;">
+                    <div class="card-body" style="height: auto !important;">
                         <h3>
-                            <center><?= $question["question"]; ?></center>
-                        </h3>
+                            <span class="categoryName" style="color: #00AEEF"><?= strtoupper($_SESSION["category"]); ?></span>
+                        </h4>
+                        <h4>
+                            <center class="question"><?= $question["question"]; ?></center>
+                        </h4>
 
                         <svg class="bd-placeholder-img card-img-top" style="margin-bottom: 10px" width="100%" height="160" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
                             <title><?= $question["question"]; ?></title>
@@ -120,40 +74,55 @@
                             <text x="50%" y="95%" fill="#ffffff" dominant-baseline="middle" text-anchor="middle" dy=".1em"></text>
                         </svg>
 
-                        <form action="" method="post" style="height: auto !important;">
-                            <button name="answer" value="a" type="submit" class="btn btn-dark btn-lg  btn-block question" style="background-color:#00ff00"><?= $question["a"]; ?></button>
-                            <button name="answer" value="b" type="submit" class="btn btn-dark btn-lg  btn-block question" style="background-color:#666666"><?= $question["b"]; ?></button>
-                            <button name="answer" value="c" type="submit" class="btn btn-dark btn-lg  btn-block question" style="background-color:#ff0000"><?= $question["c"]; ?></button>
-                            <button name="answer" value="d" type="submit" class="btn btn-dark btn-lg  btn-block question" style="background-color:##FFD700"><?= $question["d"]; ?></button>
+                        <form class="form" action="" <?= $_SERVER['PHP_SELF']; ?>"" method="post" style="height: auto !important;" >
+                            <button id="answer1" name="answer" value="a" type="submit" class="btn btn-dark btn-lg  btn-block question" <?php if (isset($_POST["answer"])) answer_color($_POST["answer"], $question["answer"], "a"); ?> ><?= $question["a"]; ?></button>
+                            <button id="answer2" name="answer" value="b" type="submit" class="btn btn-dark btn-lg  btn-block question" <?php if (isset($_POST["answer"])) answer_color($_POST["answer"], $question["answer"], "b"); ?> ><?= $question["b"]; ?></button>
+                            <button id="answer3" name="answer" value="c" type="submit" class="btn btn-dark btn-lg  btn-block question" <?php if (isset($_POST["answer"])) answer_color($_POST["answer"], $question["answer"], "c"); ?> ><?= $question["c"]; ?></button>
+                            <button id="answer4" name="answer" value="d" type="submit" class="btn btn-dark btn-lg  btn-block question" <?php if (isset($_POST["answer"])) answer_color($_POST["answer"], $question["answer"], "d"); ?> ><?= $question["d"]; ?></button>
                         </form>
                         <?php
-                            if (isset($_POST["answer"])) {                        
-                                if(strcmp($_POST["answer"], $question["answer"])==0){
-                                    echo "Dung";
-                                }else{
-                                    echo "Sai";
-                                }
+                        if (isset($_POST["answer"])) {
+                            if (strcmp($_POST["answer"], $question["answer"]) == 0) {
+                                $_SESSION["score"]++;
+                                echo "Congratulation!! Score: ". $_SESSION["score"];
+                            } else {
+                                echo "WRONG :(";
                             }
-                        ?>  
+                            echo '<script>
+                            document.getElementById("answer1").style.pointerEvents = "none";
+                            document.getElementById("answer2").style.pointerEvents = "none";
+                            document.getElementById("answer3").style.pointerEvents = "none";
+                            document.getElementById("answer4").style.pointerEvents = "none";
+                            </script>';
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
         </div>
     </main><!-- /.container -->
+    
     <?php
-    //unset($_SESSION["quiz"][$_GET["q"]]);
-    //} // End of foreach 
+        //  print_r($_SESSION); 
     ?>
+    
     <?php
-    if(isset($_SESSION["quiz"][strval(intval($_GET["q"])+1)])){ ?>
-        <div class="col-sm-12">
-            <a class="btn btn-primary" href ="quiz.php?q=<?= intval($_GET["q"])+1;?>" >Next question </a>
+
+    if (isset($_SESSION["quiz"][strval(intval($_GET["q"]) + 1)])) { ?>
+        <div id="next" class="col-sm-11">
+        <div class="button" id="button-7">
+            <div id="dub-arrow"><a href="quiz.php?q=<?= intval($_GET["q"]) + 1; ?>" ><img src="./img/right-arrow.png" alt="" /></a></div>
+            <a class="next_result_text" >NEXT!</a>
         </div>
-    <?php 
-    }else{?>
-        <div class="col-sm-12">
-            <a class="btn btn-primary" href ="result.php" >Result </a>
+    </div>
+    <?php
+    } else { ?>
+       <div id="next" class="col-sm-11">
+        <div class="button" id="button-7">
+            <div id="dub-arrow"><a href="result.php" ><img src="./img/research.png" alt="" /></a></div>
+            <a class="next_result_text">RESULT</a>
         </div>
+    </div>
     <?php
 
     }
@@ -163,15 +132,19 @@
             var elem = document.getElementById("timeBar");
             var width = 100;
             var color = "#00ff00";
-            var id = setInterval(frame, 300);
+            var id = setInterval(frame, 200); // 0.2s -> width--
 
             function frame() {
                 if (width <= 0) {
                     clearInterval(id);
+                    document.getElementById("answer1").style.pointerEvents = "none";
+                    document.getElementById("answer2").style.pointerEvents = "none";
+                    document.getElementById("answer3").style.pointerEvents = "none";
+                    document.getElementById("answer4").style.pointerEvents = "none";
                 } else {
                     if (width <= 20) {
                         color = "#ff0000";
-                    } else if (width <= 40) {
+                    } else if (width <= 50) {
                         color = "#ffff00";
                     }
                     width--;

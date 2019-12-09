@@ -1,8 +1,14 @@
 body {
-  font-family: "Roboto", sans-serif;
-  padding-top: 5rem;
+  font-family: 'Roboto', sans-serif;
+  padding-top: 4rem;
+  background: linear-gradient(to right, #3fb6a8, #7ed386);
 }
-
+.bg-light {
+  background: linear-gradient(to right, #3fb6a8, #7ed386);
+}
+.card-body {
+  text-align: center;
+}
 .bd-placeholder-img {
   font-size: 1.125rem;
   text-anchor: middle;
@@ -21,4 +27,157 @@ body {
 
 .site-logo {
   display: inline-block;
+}
+
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+}
+
+.starter-template {
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+  }
+}
+
+.site-logo {
+  display: inline-block;
+}
+.category-card:hover {
+  transform: scale(1.2);
+}
+#progressBar {
+  width: 14%;
+  margin-left: 83%;
+  height: 22px;
+  background-color: #0A5F44;
+}
+
+#progressBar div {
+  height: 100%;
+  text-align: right;
+  padding: 0 10px;
+  line-height: 22px;
+  /* same as #progressBar height if we want text middle aligned */
+  width: 0;
+  background-color: #CBEA00;
+  box-sizing: border-box;
+}
+.categoryName {
+  font: 700 1.3em/1 "Oswald", sans-serif;
+  letter-spacing: 0;
+  display: block;
+  margin: 0 auto;
+  text-shadow: 0 0 80px rgba(235, 185, 185, 0.5);
+  /* Clip Background Image */
+  background: url(http://f.cl.ly/items/010q3E1u3p2Q0j1L1S1o/animated_text_fill.png) repeat-y;
+  -webkit-background-clip: text;
+  background-clip: text;
+  /* Animate Background Image */
+  -webkit-text-fill-color: transparent;
+  -webkit-animation: aitf 80s linear infinite;
+  /* Activate hardware acceleration for smoother animations */
+  -webkit-transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+}
+@-webkit-keyframes aitf {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+.jumbotron {
+  background: linear-gradient(to right, #3fb6a8, #7ed386);  
+}
+.jumbotron h1 {
+  font: 700 4em/1 "Oswald", sans-serif; 
+}
+.question {
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-size: 16px;
+  letter-spacing: -0.2px;
+  word-spacing: 0.8px;
+  color: #000000;
+  font-weight: 700;
+  text-decoration: none;
+  font-style: normal;
+  font-variant: small-caps;
+  text-transform: uppercase;
+}
+.form .question {
+  background-color:rgb(189, 176, 98);
+}
+#next {
+width: 100%;
+margin: 0 auto;
+display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+justify-content: center;
+}
+.button {
+display: inline-flex;
+height: 40px;
+width: 150px;
+border: 2px solid #000060;
+margin: 20px 20px 20px 20px;
+color: #000060;
+text-transform: uppercase;
+text-decoration: none;
+font-size: .8em;
+letter-spacing: 1.5px;
+align-items: center;
+justify-content: center;
+overflow: hidden;
+}
+
+#next .next_result_text {
+color: #000060;
+text-decoration: none;
+letter-spacing: 1px;
+}
+#button-7 {
+position: relative;
+overflow: hidden;
+cursor: pointer;
+}
+
+#button-7 .next_result_text {
+position: relative;
+left: 0;
+transition: all .35s ease-Out;
+}
+
+#dub-arrow {
+width: 100%;
+height: 100%;
+background: #000060;
+left: -200px;
+position: absolute;
+padding: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: all .35s ease-Out;
+bottom: 0;
+}
+
+#button-7 img {
+width: 20px;
+height: auto;
+}
+
+#button-7:hover #dub-arrow {
+left: 0;
+}
+
+#button-7:hover .next_result_text {
+left: 150px;
 }
