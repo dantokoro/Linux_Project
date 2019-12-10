@@ -165,7 +165,6 @@ padding: 0;
 display: flex;
 align-items: center;
 justify-content: center;
-transition: all .35s ease-Out;
 bottom: 0;
 }
 
