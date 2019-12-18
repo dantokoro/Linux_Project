@@ -81,13 +81,13 @@
                     <img width="100%" height="400" style="margin-top: 20px" src="<?= $category["picture"]; ?>" />
                     <?php
                         if(!isset($quiz_list)) echo 'No question in this category :(';
-                        else echo '
+                        else echo '<a href="quiz.php?q=0" >
                     <div id="next" class="col-sm-11">
                         <div class="button" id="button-7">
-                            <div id="dub-arrow"><a href="quiz.php?q=0" ><img src="./img/right-arrow.png" alt="" /></a></div>
+                            <div id="dub-arrow"><img src="./img/right-arrow.png" alt="" /></div>
                             <a class="next_result_text" > START</a>
                         </div>
-                    </div>';
+                    </div></a>';
                     ?>
                 </div>
             </section>

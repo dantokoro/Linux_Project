@@ -106,20 +106,24 @@
         <?php
 
             if (isset($_SESSION["quiz"][strval(intval($_GET["q"]) + 1)])) { ?>
-            <div id="next" class="col-sm-11">
-                <div class="button" id="button-7">
-                    <div id="dub-arrow"><a href="quiz.php?q=<?= intval($_GET["q"]) + 1; ?>"><img src="./img/right-arrow.png" alt="" /></a></div>
-                    <a class="next_result_text">NEXT!</a>
+            <a href="quiz.php?q=<?= intval($_GET["q"]) + 1; ?>">
+                <div id="next" class="col-sm-11">
+                    <div class="button" id="button-7">
+                        <div id="dub-arrow"><img src="./img/right-arrow.png" alt="" /></div>
+                        <a class="next_result_text">NEXT!</a>
+                    </div>
                 </div>
-            </div>
+            </a>
         <?php
             } else { ?>
+            <a href="result.php">
             <div id="next" class="col-sm-11">
                 <div class="button" id="button-7">
-                    <div id="dub-arrow"><a href="result.php"><img src="./img/research.png" alt="" /></a></div>
+                    <div id="dub-arrow"><img src="./img/research.png" alt="" /></div>
                     <a class="next_result_text">RESULT</a>
                 </div>
             </div>
+            </a>
     <?php
 
         }
