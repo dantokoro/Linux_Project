@@ -55,8 +55,16 @@
             </div>
         </nav>
         <?php
-        $query = "SELECT * FROM question WHERE id IN (SELECT question_id FROM quiz WHERE category=" . $_GET["category"] . ")";
-        $result_quiz = mysqli_query($con, $query) or die(mysqli_error($con));
+        $query = "SELECT id FROM category WHERE parent_category_id=" . $_GET["category"];
+        $result_category = mysqli_query($con, $query) or die(mysqli_error($con));
+        if(mysqli_num_rows($result_category) > 0){  //parent_category
+            $query = "SELECT * FROM question WHERE category_id IN (SELECT id FROM category WHERE parent_category_id = " . $_GET["category"] . ")";
+            $result_quiz = mysqli_query($con, $query) or die(mysqli_error($con));
+        }else{    //sub category
+            $query = "SELECT * FROM question WHERE category_id = " . $_GET["category"];
+            $result_quiz = mysqli_query($con, $query) or die(mysqli_error($con));
+        }
+        
         $query = "SELECT * FROM category WHERE id=" . $_GET["category"];
         $result_category = mysqli_query($con, $query) or die(mysqli_error($con));
         $category = mysqli_fetch_assoc($result_category);
@@ -65,12 +73,13 @@
                 $quiz_list[] = $quiz;
             }
         }
-        if(isset($quiz_list)){
+        if (isset($quiz_list)) {
             shuffle($quiz_list);
+            unset($_SESSION["quiz"]);
             $_SESSION["quiz"] = array_slice($quiz_list, 0, 6);
         }
-        $_SESSION["category"]=$category["name"];
-        $_SESSION["score"]=0;
+        $_SESSION["category"] = $category["name"];
+        $_SESSION["score"] = 0;
         //print_r($_SESSION);
         //foreach ($GLOBALS as $ques_num => $question) {
         ?>
@@ -80,8 +89,8 @@
                     <h1 class="jumbotron-heading categoryName"><?= $category["name"]; ?> Quiz</h1>
                     <img width="100%" height="400" style="margin-top: 20px" src="<?= $category["picture"]; ?>" />
                     <?php
-                        if(!isset($quiz_list)) echo 'No question in this category :(';
-                        else echo '<a href="quiz.php?q=0" >
+                    if (!isset($quiz_list)) echo 'No question in this category :(';
+                    else echo '<a href="quiz.php?q=0" >
                     <div id="next" class="col-sm-11">
                         <div class="button" id="button-7">
                             <div id="dub-arrow"><img src="./img/right-arrow.png" alt="" /></div>
@@ -91,6 +100,34 @@
                     ?>
                 </div>
             </section>
+        </div>
+        <div class="container">
+            <div class="row">
+                <?php
+                $query = "SELECT * FROM category WHERE parent_category_id=". $_GET["category"];//sub category
+                $result = mysqli_query($con, $query) or die(mysqli_error($con));
+                if (mysqli_num_rows($result) > 0) {
+                    while ($category = mysqli_fetch_assoc($result)) {
+                        echo '<div class="col-md-4">
+                                <div class="card mb-4 shadow-sm category-card" >
+                                    <a href="';
+                        if ($login)
+                            echo 'category.php?category=' . $category["id"];
+                        else
+                            echo 'login/login2.php';
+                        echo '">
+                                        <img width="100%" height="200" 
+                                            src="' . $category["picture"] . '">
+                                    </a>
+                                    <div class="card-body">
+                                        <h3 class="card-title">' . $category["name"] . '</h3>';
+                        echo '</div>
+                                </div>
+                            </div>';
+                    }
+                }
+                ?>
+            </div>
         </div>
 </body>
 

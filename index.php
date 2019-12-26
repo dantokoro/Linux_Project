@@ -55,14 +55,10 @@
             <div class="container">
                 <div class="row">
                     <?php
-                    $query = "SELECT * FROM category";
+                    $query = "SELECT * FROM category WHERE parent_category_id is null";
                     $result = mysqli_query($con, $query) or die(mysqli_error($con));
                     if (mysqli_num_rows($result) > 0) {
                         while ($category = mysqli_fetch_assoc($result)) {
-                            if($login){
-                                $query = 'SELECT * FROM bestscore WHERE user_id=' . $info["id"] . ' AND category_id=' . $category["id"];
-                                $result_score = mysqli_query($con, $query) or die(mysqli_error($con));
-                            }
                             echo '<div class="col-md-4">
                                 <div class="card mb-4 shadow-sm category-card" >
                                     <a href="';
@@ -76,15 +72,6 @@
                                     </a>
                                     <div class="card-body">
                                         <h3 class="card-title">' . $category["name"] . '</h3>';
-                            if ($login==1 && mysqli_num_rows($result_score) > 0) {
-                                $bestscore = mysqli_fetch_assoc($result_score);
-                                $query = 'SELECT COUNT(*) FROM quiz WHERE category=' . $category["id"];
-                                $result_count = mysqli_query($con, $query) or die(mysqli_error($con));
-                                $count = mysqli_fetch_assoc($result_count);
-                                echo '<h6>Best score: '.$bestscore["score"].'/6</h6>';
-                            }else{
-                                echo '<h6>Do you dare?</h6>';
-                            }
                             echo '</div>
                                 </div>
                             </div>';

@@ -101,24 +101,27 @@
         <h1><?php
             $query = "SELECT * FROM category WHERE name='" . $_SESSION["category"] . "'";
             $result_category = mysqli_query($con, $query) or die(mysqli_error($con));
-            $category = mysqli_fetch_assoc($result_category);
-            $query = 'SELECT * FROM bestscore WHERE user_id=' . $info["id"] . ' AND category_id=' . $category["id"];
-            $result = mysqli_query($con, $query) or die(mysqli_error($con));
-            if (mysqli_num_rows($result) > 0) {
-                $bestscore = mysqli_fetch_assoc($result);
-                if ($bestscore["score"] < $_SESSION["score"]) {
-                    $query = 'UPDATE bestscore SET score=4 WHERE user_id =' . $info["id"] . ' AND category_id=' . $category["id"];
-                    $result = mysqli_query($con, $query) or die(mysqli_error($con));
-                    echo 'NEW BEST SCORE!! <br> ' . $_SESSION["score"];
-                }else{
-                    echo 'BEST SCORE: ' . $bestscore["score"];
-                    echo '<br>YOUR SCORE: '.$_SESSION["score"];
-                }
-            } else {
-                $query = 'INSERT INTO bestscore VALUES (' . $info["id"] . ',' . $category["id"] . ',' . $_SESSION["score"] . ')';
+            if (mysqli_num_rows($result_category) > 0) {
+                $category = mysqli_fetch_assoc($result_category);
+                $query = 'SELECT * FROM bestscore WHERE user_id=' . $info["id"] . ' AND category_id=' . $category["id"];
                 $result = mysqli_query($con, $query) or die(mysqli_error($con));
-                echo 'BEST SCORE: ' . $_SESSION["score"];
+                if (mysqli_num_rows($result) > 0) {
+                    $bestscore = mysqli_fetch_assoc($result);
+                    if ($bestscore["score"] < $_SESSION["score"]) {
+                        $query = 'UPDATE bestscore SET score='.$_SESSION["score"].' WHERE user_id =' . $info["id"] . ' AND category_id=' . $category["id"];
+                        $result = mysqli_query($con, $query) or die(mysqli_error($con));
+                        echo 'NEW BEST SCORE!! <br> ' . $_SESSION["score"];
+                    } else {
+                        echo 'BEST SCORE: ' . $bestscore["score"];
+                        echo '<br>YOUR SCORE: ' . $_SESSION["score"];
+                    }
+                } else {
+                    $query = 'INSERT INTO bestscore VALUES (' . $info["id"] . ',' . $category["id"] . ',' . $_SESSION["score"] . ')';
+                    $result = mysqli_query($con, $query) or die(mysqli_error($con));
+                    echo 'BEST SCORE: ' . $_SESSION["score"];
+                }
             }
+
             ?></h1><br>
     </div>
 
