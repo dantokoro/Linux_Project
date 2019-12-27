@@ -78,6 +78,16 @@
                         }
                     }
                     ?>
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm category-card">
+                            <a href="form_create.php?new_category=true">
+                                <img width="100%" height="200" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBP90Z864SiH1E0e3nkIC6S87kBfFWE6MP-tCdolvhlSQTnI-H&s">
+                            </a>
+                            <div class="card-body">
+                                <h3 class="card-title">Add more</h3>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

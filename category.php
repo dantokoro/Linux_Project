@@ -57,14 +57,14 @@
         <?php
         $query = "SELECT id FROM category WHERE parent_category_id=" . $_GET["category"];
         $result_category = mysqli_query($con, $query) or die(mysqli_error($con));
-        if(mysqli_num_rows($result_category) > 0){  //parent_category
-            $query = "SELECT * FROM question WHERE category_id IN (SELECT id FROM category WHERE parent_category_id = " . $_GET["category"] . ")";
+        if (mysqli_num_rows($result_category) > 0) {  //parent_category
+            $query = "SELECT * FROM question WHERE category_id = {$_GET["category"]} OR category_id IN (SELECT id FROM category WHERE parent_category_id = " . $_GET["category"] . ")";
             $result_quiz = mysqli_query($con, $query) or die(mysqli_error($con));
-        }else{    //sub category
+        } else {    //sub category
             $query = "SELECT * FROM question WHERE category_id = " . $_GET["category"];
             $result_quiz = mysqli_query($con, $query) or die(mysqli_error($con));
         }
-        
+
         $query = "SELECT * FROM category WHERE id=" . $_GET["category"];
         $result_category = mysqli_query($con, $query) or die(mysqli_error($con));
         $category = mysqli_fetch_assoc($result_category);
@@ -104,7 +104,7 @@
         <div class="container">
             <div class="row">
                 <?php
-                $query = "SELECT * FROM category WHERE parent_category_id=". $_GET["category"];//sub category
+                $query = "SELECT * FROM category WHERE parent_category_id=" . $_GET["category"]; //sub category
                 $result = mysqli_query($con, $query) or die(mysqli_error($con));
                 if (mysqli_num_rows($result) > 0) {
                     while ($category = mysqli_fetch_assoc($result)) {
@@ -127,6 +127,26 @@
                     }
                 }
                 ?>
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm category-card">
+                        <a href="form_create.php?parent_category=<?= $_GET["category"]; ?>">
+                            <img width="100%" height="200" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBP90Z864SiH1E0e3nkIC6S87kBfFWE6MP-tCdolvhlSQTnI-H&s">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title"><strong>Add more category</strong></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm category-card">
+                        <a href="form_create.php?quiz_to_category=<?= $_GET["category"]; ?>">
+                            <img width="100%" height="200" src="https://cdn.pixabay.com/photo/2018/08/31/11/17/quiz-3644414_960_720.png">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title"><strong>Add more question</strong></h5>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 </body>

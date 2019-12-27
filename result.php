@@ -3,7 +3,6 @@
 
 <head>
 
-<body>
     <link href="./css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sigmar+One">
@@ -55,7 +54,6 @@
             display: none;
         }
     </style>
-</body>
 </head>
 
 <body>
